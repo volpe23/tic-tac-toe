@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.game-board {
+    display: grid;
+    grid-template: repeat(3, 1fr) repeat(3, 1fr);
+}
+
