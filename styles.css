@@ -4,4 +4,29 @@
   box-sizing: border-box;
 }
 
+main {
+  display: grid;
+  height: 100vh;
+  place-content: center;
+}
+
+.game-board {
+  display: grid;
+  gap: 8px;
+  grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+  width: 120px;
+}
+
+.game-square {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #c1c1c1;
+  font-size: 2rem;
+  text-align: center;
+}
+.game-square:hover {
+  scale: 1.05;
+}
+
 /*# sourceMappingURL=styles.css.map */
