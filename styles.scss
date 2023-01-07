@@ -13,7 +13,12 @@ main {
     display: grid;
     gap: 8px;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    width: 120px;
+    width: 166px;
+}
+
+#startGame {
+    margin: 20px auto 0 auto;
+
 }
 
 .game-square {
