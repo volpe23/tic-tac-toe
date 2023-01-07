@@ -12,9 +12,8 @@ main {
 
 .game-board {
   display: grid;
-  gap: 8px;
   grid-template: repeat(3, 1fr)/repeat(3, 1fr);
-  width: 166px;
+  width: 150px;
 }
 
 #startGame {
@@ -22,15 +21,71 @@ main {
 }
 
 .game-square {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: 50px;
   height: 50px;
-  background-color: #c1c1c1;
   font-size: 2rem;
   text-align: center;
+  border: 1px solid black;
 }
 .game-square:hover {
-  scale: 1.05;
+  padding: 0;
+}
+.game-square:nth-child(3n) {
+  border-right: none;
+}
+.game-square:nth-child(3n-2) {
+  border-left: none;
+}
+.game-square:nth-child(-n+3) {
+  border-top: none;
+}
+.game-square:nth-child(n+7) {
+  border-bottom: none;
+}
+
+.o::after, .o::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 45px;
+  background-color: black;
+}
+
+.x::before {
+  position: absolute;
+  transform: rotate(45deg);
+  content: "";
+  display: block;
+  width: 90%;
+  height: 5px;
+  background-color: black;
+}
+
+.x::after {
+  position: absolute;
+  transform: rotate(-45deg);
+  content: "";
+  display: block;
+  width: 90%;
+  height: 5px;
+  background-color: black;
+}
+
+.o::before {
+  height: 45px;
+  border-radius: 50%;
+}
+
+.o::after {
+  width: 38px !important;
+  height: 38px;
+  border-radius: 50%;
+  background-color: white;
 }
 
 /*# sourceMappingURL=styles.css.map */

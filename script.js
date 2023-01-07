@@ -6,34 +6,24 @@ function createSquare(index) {
     return div;
 }
 
-// const Gameboard = {
-//     board: document.querySelector('.game-board'),
-//     boardSquares: Array(9).fill().map((_, i) => i + 1),
-
-//     createBoard: function() {
-//         this.boardSquares.forEach(_ => this.board.append(createSquare()));
-//     }
-// };
-
-// function fillGameBoard() {
-
-// }
 const gameBoard = (() => {
     const board = document.querySelector('.game-board');
     const gameFields = Array(9).fill('');
     const fillGameBoard = () => {
         board.innerHTML = '';
         gameFields.forEach((_, i) => board.appendChild(createSquare(i)));
+        gameFields.fill('');
     };
     const addChoice = (e, i) => {
         const symbol = game.getTurn();
-        e.target.textContent = symbol;
+        e.target.classList.add(`${symbol}`);
         gameFields[i] = game.getTurn();
-        isWinner(symbol) ? game.gameOver(symbol) : game.switchTurn();
-        // game.switchTurn();
+        if (isWinner(symbol)) game.gameOver(symbol);
+        else if (isWinner(symbol) === null) game.gameOver(symbol, null);
+        else game.switchTurn();
     };
     const isWinner = (symbol) => {
-        const winConditions = ['012', '345', '678', '036', '147', '258', '048', '256'];
+        const winConditions = ['012', '345', '678', '036', '147', '258', '048', '246'];
         const choices = gameFields.reduce((acc, el, i) => {
             if (el === symbol) acc.push(i);
             return acc;
@@ -45,6 +35,7 @@ const gameBoard = (() => {
             sequence.every((num) => choices.includes(+num)) ? result = true : result = false;
             i++;
         }
+        if (choices.length === 5 && result === false) return null;
         return result;
     };
     return { fillGameBoard, addChoice };
@@ -58,8 +49,8 @@ const player = (inp) => {
 };
 
 const game = (() => {
-    const player1 = player('X');
-    const player2 = player('O');
+    const player1 = player('x');
+    const player2 = player('o');
     let xTurn;
     const startGame = () => {
         gameBoard.fillGameBoard();
@@ -71,9 +62,10 @@ const game = (() => {
     const switchTurn = () => {
         xTurn = !xTurn;
     };
-    const gameOver = (symbol) => {
-        console.log(`${symbol} wins!`);
+    const gameOver = (symbol, draw) => {
+        if (draw === null) console.log('DRAW!');
+        else console.log(`${symbol} wins!`);
     }
     document.querySelector('#startGame').addEventListener('click', () => startGame());
-    return { player1, player2, getTurn, switchTurn, xTurn, gameOver };
+    return { player1, player2, getTurn, switchTurn, gameOver };
 })();
