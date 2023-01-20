@@ -5,22 +5,31 @@ function createSquare(index) {
 
     return div;
 }
-
+// Create game board 
 const gameBoard = (() => {
     const board = document.querySelector('.game-board');
     const gameFields = Array(9).fill('');
     const fillGameBoard = () => {
+       
         board.innerHTML = '';
         gameFields.forEach((_, i) => board.appendChild(createSquare(i)));
         gameFields.fill('');
+        
     };
     const addChoice = (e, i) => {
         const symbol = game.getTurn();
-        e.target.classList.add(`${symbol}`);
-        gameFields[i] = game.getTurn();
-        if (isWinner(symbol)) game.gameOver(symbol);
+        if (isWinner(symbol) === false) {
+            e.target.classList.add(`${symbol}`);
+            gameFields[i] = game.getTurn();
+            
+            if (isWinner(symbol)) game.gameOver(symbol) 
+            else game.switchTurn()
+        } 
         else if (isWinner(symbol) === null) game.gameOver(symbol, null);
-        else game.switchTurn();
+        else {
+            game.gameOver(symbol);
+            
+        };
     };
     const isWinner = (symbol) => {
         const winConditions = ['012', '345', '678', '036', '147', '258', '048', '246'];
@@ -49,14 +58,18 @@ const player = (inp) => {
 };
 
 const game = (() => {
-    const player1 = player('x');
-    const player2 = player('o');
+    let player1;
+    let player2;
     let xTurn;
     const startGame = () => {
         gameBoard.fillGameBoard();
+        const choice1 = document.querySelector('#player1');
+        const choice2 = document.querySelector('#player2');
+        player1 = player(choice1.value);
+        player2 = player(choice2.value);
     };
     const getTurn = () => {
-        const currentTurn = xTurn ? player1 : player2;
+        const currentTurn = xTurn ? player2 : player1;
         return currentTurn.symbol;
     };
     const switchTurn = () => {
@@ -69,3 +82,5 @@ const game = (() => {
     document.querySelector('#startGame').addEventListener('click', () => startGame());
     return { player1, player2, getTurn, switchTurn, gameOver };
 })();
+
+gameBoard.fillGameBoard()

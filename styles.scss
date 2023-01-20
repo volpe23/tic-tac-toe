@@ -1,19 +1,49 @@
+$game-size: 350px;
+$mark-size: calc(($game-size / 3) * 0.9);
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
+
 main {
     display: grid;
     height: 100vh;
     place-content: center;
-
 }
 .game-board {
     display: grid;
-    // gap: 8px;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    width: 150px;
+    overflow: hidden;
+    margin-left: auto;
+        margin-right: auto;
+    animation: gameExpand 1s linear 1 forwards;
+    
+}
+@keyframes gameExpand {
+    from {
+        width: 0;
+        height: 0;
+        
+    }
+    to {
+        height: $game-size;
+        width: $game-size;
+    }
+}
+@keyframes expand {
+    from {
+        // margin: 50% 50%;
+        height: 0;
+        width: 0
+    }
+    to {
+        // width: $game-size;
+        margin: 0 0;
+        height: calc($game-size / 3);
+        width: calc($game-size / 3);
+    }
 }
 
 #startGame {
@@ -27,12 +57,12 @@ main {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: calc($game-size / 3);
+    height: calc($game-size / 3);
     font-size: 2rem;
     text-align: center;
     border: 1px solid black;
-    
+    animation: expand 1s linear 1 forwards;
     &:hover {
         // scale: 1.05;
         padding: 0;
@@ -57,7 +87,7 @@ main {
     // left: 50%;
     content: '';
     display: block;
-    width: 45px;
+    width: $mark-size;
     background-color: black;
 }
 .x::before {
@@ -65,8 +95,8 @@ main {
     transform: rotate(45deg);
     content: '';
     display: block;
-    width: 90%;
-    height: 5px;
+    width: $mark-size;
+    height: calc($mark-size * 0.15);
     background-color: black;
 }
 .x::after {
@@ -74,19 +104,75 @@ main {
     transform: rotate(-45deg);
     content: '';
     display: block;
-    width: 90%;
-    height: 5px;
+    width: $mark-size;
+    height: calc($mark-size * 0.15);
     background-color: black;
 }
 .o::before {
     @extend %symbol;
-    height: 45px;
+    height: $mark-size;
     border-radius: 50%;
 }
 .o::after {
     @extend %symbol;
-    width: 38px!important;
-    height: 38px;
+    width: calc($mark-size * 0.7)!important;
+    height: calc($mark-size * 0.7);
     border-radius: 50%;
     background-color: white;
+}
+
+%dflex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selection {
+    @extend %dflex-center;
+    flex-direction: column;
+    gap: 26px;
+    margin-bottom: 2rem;
+}
+
+.option-menu {
+    @extend %dflex-center;
+    gap: 26px;
+}
+
+.selection select {
+    width: 50px;
+    height: 40px;
+    padding-left: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    appearance: none;
+    border: 2px solid darkgray;
+    border-radius: 5px;
+    &:hover {
+        cursor: pointer;
+        border: 2.2px solid rgb(134, 134, 134);
+    }
+    &:focus {
+        border: 2.2px solid rgb(134, 134, 134);
+    }
+}
+
+.selection span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.btn {
+    cursor: pointer;
+    width: 8rem;
+    height: 3rem;
+    background-color: #ff7d7d;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    &:hover {
+        background-color: #ff5757;
+        box-shadow: 0 2px 4px 1px rgb(179, 179, 179);
+        border: 3px solid black;
+    }
 }
