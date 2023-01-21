@@ -161,18 +161,81 @@ main {
     font-size: 1.5rem;
     font-weight: 600;
 }
-
+.button-wrapper {
+    display: flex;
+}
 .btn {
     cursor: pointer;
     width: 8rem;
     height: 3rem;
-    background-color: #ff7d7d;
+    margin: 2px 4px;
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
     &:hover {
-        background-color: #ff5757;
+        
         box-shadow: 0 2px 4px 1px rgb(179, 179, 179);
         border: 3px solid black;
+    }
+}
+
+.btn-red {
+    background-color: #ff7d7d;
+    &:hover {
+        background-color: #ff5757;
+    }
+}
+.btn-green {
+    background-color: #14ce90;
+
+    &:hover {
+        background-color: #0fad7b;
+    }
+}
+
+.modal {
+    @extend %dflex-center;
+    flex-direction: column;
+    gap: 60px;
+    position: fixed;
+    border: 3px solid black;
+    padding: 80px 40px;
+    background-color: #d0d0d0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    scale: 0;
+    transition: scale 0.4s ease-in;
+    &.active {
+        @extend %active-class;
+    }
+    h1 {
+        font-size: 4rem;
+        text-align: center;
+    }
+    
+}
+
+%active-class {
+    scale: 1;
+    opacity: 1;
+    transition: scale 0.4s ease-in;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    // scale: 0;
+    transition: scale 0.4s ease-in;
+    &.active {
+        @extend %active-class;
+        pointer-events: all;
+        
     }
 }

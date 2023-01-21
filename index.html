@@ -10,7 +10,7 @@
 <body>
     <main>
         <div class="selection">
-            <div class="button-wrapper"><button type="button" class="btn" id="startGame">Start Game</button></div>
+            <div class="button-wrapper"><button type="button" class="btn btn-red" id="startGame">Start Game</button></div>
             <div class="option-menu">
                 <span>Player 1</span>
                 <select id="player1">
@@ -30,8 +30,14 @@
             </div>
             
         </div>
-        <div class="modal">
-            
+        <div id="overlay">
+            <div class="modal">
+                <h1 id="winner-message"></h1>
+                <div class="button-wrapper">
+                    <button class="btn btn-green" id="restart-game">Play again</button>
+                    <button class="btn btn-red" id="close">Close</button>
+                </div>
+            </div>
         </div>
     </main>
 
